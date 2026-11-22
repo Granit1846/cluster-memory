@@ -1,6 +1,6 @@
 ---
 name: cluster-memory
-description: Use before searching a codebase or recalling earlier work in a project. Keeps a keyword trail — files, graph nodes and conclusions — so a question is answered by one small lookup instead of grepping, re-reading history, or re-deriving what was already known. Record the answer when done.
+description: Use before searching a codebase or recalling earlier work in a project. Keeps a keyword trail - files, graph nodes and conclusions - so a question is answered by one small lookup instead of grepping, re-reading history, or re-deriving what was already known. Record the answer when done.
 ---
 
 # Cluster Memory
@@ -8,8 +8,8 @@ description: Use before searching a codebase or recalling earlier work in a proj
 A project remembers what it was asked. This skill keeps that memory as a keyword
 index of conclusions, not transcripts: for every answered question it stores a few
 keywords, the files that answered it, the graph nodes involved, and one sentence of
-what was concluded. A later question is then a single small read — "where did we
-look for these words?" — instead of a grep, a file crawl, or a scroll through
+what was concluded. A later question is then a single small read - "where did we
+look for these words?" - instead of a grep, a file crawl, or a scroll through
 history that compaction may have hidden.
 
 Everything lives in `.cluster-memory/` inside the project and is plain JSON, so it
@@ -27,7 +27,7 @@ agent.
 
 Stop at the first layer that answers. Never start at the bottom.
 
-### Layer 1 — trail (always start here)
+### Layer 1 - trail (always start here)
 
 ```bash
 node <skill-dir>/scripts/cluster-memory.mjs where "how is the invoice total computed"
@@ -35,7 +35,7 @@ node <skill-dir>/scripts/cluster-memory.mjs where "how is the invoice total comp
 
 It prints the matching keywords, the files and graph nodes that answered them
 before, the earlier phrasings of the question, and the last conclusion. If that
-conclusion still holds, answer from it and name its source — the question is done,
+conclusion still holds, answer from it and name its source - the question is done,
 no file was opened.
 
 An empty result is not an error. It means the trail has not seen this area yet:
@@ -44,19 +44,19 @@ descend to layer 2.
 Add `--keywords a,b` when the user's words are vague but you know the domain terms.
 Add `--json` when you need to process the result programmatically.
 
-### Layer 2 — the code
+### Layer 2 - the code
 
 If the [`graphify`](https://github.com/Graphify-Labs/graphify) CLI is installed,
 prefer its graph over grepping: `graphify query "<question>"`, `graphify explain`,
 `graphify path`, `graphify affected`. Nodes from layer 1 make excellent seeds.
 Otherwise grep, bounded to the directories the trail suggests.
 
-### Layer 3 — files
+### Layer 3 - files
 
 Only the files layer 2 named, and only for the exact lines, signatures or defaults
 you still need.
 
-### Layer 4 — earlier conversations (last resort)
+### Layer 4 - earlier conversations (last resort)
 
 Only when layers 1–3 found nothing. History records what was said, not what is true
 now. Verify anything you take from it against the current code, then record it with
@@ -64,7 +64,7 @@ now. Verify anything you take from it against the current code, then record it w
 
 ## Always record what you concluded
 
-After answering a question about the project — including a failed search — record
+After answering a question about the project - including a failed search - record
 it:
 
 ```bash
@@ -90,7 +90,7 @@ node <skill-dir>/scripts/cluster-memory.mjs remember \
 Where the agent supports hooks, tool results can be trailed without asking:
 
 - Claude Code: a `PostToolUse` hook that pipes the tool name and input to
-  `record` — see `examples/claude-code-hooks.json`.
+  `record` - see `examples/claude-code-hooks.json`.
 - Any agent with git hooks: `examples/git-post-commit.sh` records the commit
   message keywords, so decisions tied to a commit are findable later.
 
