@@ -82,7 +82,19 @@ plugin_manager
 ```
 
 Or use the GUI: **Plugins** → **Add plugin** → paste the same spec → install → restart
-when asked. Afterwards:
+when asked.
+
+Or from a terminal, when `dsh` is on your PATH:
+
+```bash
+dsh plugin --profile <name> add github:Granit1846/cluster-memory
+```
+
+That forwards the arguments to pnpm inside `$DSH_HOME/profiles/<name>`, then activates any
+newly installed bundle on the next boot of that profile. It refuses `--profile desktop` on
+purpose — the Desktop app owns that profile, so use **Plugins** there.
+
+Afterwards:
 
 ```
 graphify_doctor
@@ -90,8 +102,8 @@ graphify_doctor
 ```
 
 Update and removal use the same spec: `install_bundle`, `set_bundle enabled: false`,
-`remove_bundle`. Every route, plus local checkouts and troubleshooting, is in
-[docs/INSTALL.md](docs/INSTALL.md).
+`remove_bundle` — or `dsh plugin --profile <name> add|remove <spec>`. Every route, plus
+local checkouts and troubleshooting, is in [docs/INSTALL.md](docs/INSTALL.md).
 
 ## Use
 
@@ -221,6 +233,8 @@ git clone https://github.com/Granit1846/cluster-memory.git ~/.claude/skills/clus
 > Установи бандл cluster-memory из github:Granit1846/cluster-memory
 
 или в интерфейсе: **Плагины** → **Add plugin** → `github:Granit1846/cluster-memory`.
+Если `dsh` есть в PATH — из терминала: `dsh plugin --profile <name> add
+github:Granit1846/cluster-memory` (профиль `desktop` так не ставится: им владеет приложение).
 Настройки — в [docs/SETTINGS.md](docs/SETTINGS.md), подробности установки — в
 [docs/INSTALL.md](docs/INSTALL.md).
 

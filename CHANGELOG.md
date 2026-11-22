@@ -28,6 +28,12 @@ One package, two surfaces.
 - Conclusion lookup in `where` now matches stems like the keyword index does, so
   "invoices" finds a conclusion filed under "invoice".
 
+### Docs
+
+- `docs/INSTALL.md` documents the terminal route `dsh plugin --profile <name> add <spec>`
+  (pnpm inside the profile; newly declared bundles activate on the next boot) beside the
+  agent and GUI routes, and explains why `--profile desktop` is refused to outside callers.
+
 ## 1.1.0 — 2026-11-21
 
 ### Added

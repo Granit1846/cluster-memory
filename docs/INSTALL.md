@@ -58,7 +58,51 @@ also copy `SKILL.md` into `~/.dsh/skills`.
 The repository root is a DSH bundle, so a bare git spec is enough — no build step, no
 npm publish, no clone.
 
-### B1. From a DSH session
+### B1. From a terminal (`dsh plugin`)
+
+If `dsh` is on your PATH (npm/global install, or `npx @deepseek-ai/dsh`), the CLI manages a
+profile's packages directly — everything after its own flags is forwarded to pnpm inside
+`$DSH_HOME/profiles/<name>`:
+
+```bash
+dsh plugin --profile web add github:Granit1846/cluster-memory
+```
+
+This is the same operation the plugin manager performs: after pnpm succeeds, DSH reconciles
+the profile and appends any newly installed dependency that declares `dsh.bundle.patch` to
+`dsh.profile.bundles`, so the bundle activates on the next boot of that profile. A profile
+that does not exist yet is initialized from its template first
+(`dsh: initialized profile web at …`).
+
+Other pnpm verbs pass through unchanged:
+
+```bash
+dsh plugin --profile web why cluster-memory      # who depends on it
+dsh plugin --profile web remove cluster-memory   # uninstall
+dsh plugin --profile web list                    # everything in the profile
+```
+
+DSH intercepts only the compatibility subcommands:
+
+```bash
+dsh plugin --profile web version-exemptions
+dsh plugin --profile web allow-version cluster-memory@1.2.0 --dsh-version 0.2.2-rc.5 --accept-risk
+dsh plugin --profile web revoke-version cluster-memory@1.2.0 --dsh-version 0.2.2-rc.5
+```
+
+Three limits are worth knowing:
+
+- **`--profile desktop` is refused** — `error: profile "desktop" is managed exclusively by
+  the Electron application`. Use **Plugins** or `plugin_manager` (B2/B3) for the Desktop app.
+- **Git-hosted specs build on install** through their `prepare` script, which pnpm blocks
+  until allowed: add the exact key pnpm prints under `allowBuilds` in the profile's
+  `pnpm-workspace.yaml`, then re-run.
+- **Changes land on the next boot** of that profile; nothing hot-reloads into a running app.
+
+The Desktop installer ships this CLI inside `app.asar` and does not put `dsh` on PATH, which
+is why the routes below are the normal ones on Desktop.
+
+### B2. From a DSH session
 
 Ask the agent:
 
@@ -85,12 +129,12 @@ DSH pre-checks the repository with `git ls-remote`, then installs the package in
 current profile and adds the bundle row. Without hot reload the result is
 `application: restart-required` — restart DSH, then open a new session.
 
-### B2. From the GUI
+### B3. From the GUI
 
 **Plugins** → **Add plugin** → paste `github:Granit1846/cluster-memory` → install →
 restart when asked.
 
-### B3. Verify
+### B4. Verify
 
 ```
 graphify_doctor
@@ -108,7 +152,7 @@ report an honest "graphify is not installed" instead of failing.
 The 15 tools, the `cluster-memory` skill, automatic trailing and automatic first
 build are all in that one bundle. Settings: [SETTINGS.md](SETTINGS.md).
 
-### B4. Update and remove
+### B5. Update and remove
 
 ```
 plugin_manager  action: list_bundles                       # current rows and specs
@@ -117,7 +161,8 @@ plugin_manager  action: set_bundle  target: cluster-memory  enabled: false      
 plugin_manager  action: remove_bundle  target: cluster-memory                       # remove
 ```
 
-Each change is profile-wide and needs a restart to take effect.
+Each change is profile-wide and needs a restart to take effect. From a terminal, the same
+jobs are `dsh plugin --profile <name> add|remove <spec>` (see B1).
 
 ---
 
