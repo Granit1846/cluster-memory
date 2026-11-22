@@ -1,0 +1,17 @@
+# Node dependencies (the plugin declares none, but a checkout may have some)
+node_modules/
+
+# Stores created while working on this repository
+.cluster-memory/
+graphify-out/
+
+# Local scratch
+.artifacts/
+*.log
+
+# OS and editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/

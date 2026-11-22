@@ -1,0 +1,16 @@
+{
+  "$comment": "Claude Code hook example: trail every settled tool call without asking the model. Merge the hooks array into .claude/settings.json, replacing CLUSTER_MEMORY with the absolute path of this skill's scripts directory (or set it in the environment). The hook hands its event over on stdin, hence --stdin.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLUSTER_MEMORY/cluster-memory.mjs\" record --stdin --tool claude-code"
+          }
+        ]
+      }
+    ]
+  }
+}

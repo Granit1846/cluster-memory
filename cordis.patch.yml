@@ -1,0 +1,14 @@
+// Cluster Memory as a DeepSeek Harness bundle: one row, all tools in one module.
+- insert:
+    - id: tool-cluster-memory
+      name: 'cluster-memory'
+      # Every knob is optional; the defaults are documented in docs/SETTINGS.md.
+      # config:
+      #   trail: true
+      #   autobuild: true
+      #   autobuildFileLimit: 4000
+      #   autobuildTimeoutMs: 300000
+      #   historyHint: auto        # auto | always | never
+      #   bin: C:\Users\me\.local\bin\graphify.exe
+      #   captureDir: C:\Temp\cluster-memory
+      #   tools: [graphify_where, graphify_remember, graphify_query, graphify_status]
