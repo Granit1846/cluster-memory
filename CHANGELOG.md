@@ -3,7 +3,7 @@
 All notable changes to this project. Format: [Keep a Changelog](https://keepachangelog.com/),
 versioning: [SemVer](https://semver.org/).
 
-## 1.2.0 — 2026-11-22
+## 1.2.0 - 2026-11-22
 
 One package, two surfaces.
 
@@ -34,7 +34,7 @@ One package, two surfaces.
   (pnpm inside the profile; newly declared bundles activate on the next boot) beside the
   agent and GUI routes, and explains why `--profile desktop` is refused to outside callers.
 
-## 1.1.0 — 2026-11-21
+## 1.1.0 - 2026-11-21
 
 ### Added
 
@@ -46,7 +46,7 @@ One package, two surfaces.
 - Layered fallback hints: an empty trail names the next layer, and session-history tools
   are mentioned only when the profile actually has them.
 
-## 1.0.0 — 2026-11-20
+## 1.0.0 - 2026-11-20
 
 ### Added
 
