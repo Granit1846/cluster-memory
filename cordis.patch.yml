@@ -1,4 +1,4 @@
-// Cluster Memory as a DeepSeek Harness bundle: one row, all tools in one module.
+# Cluster Memory as a DeepSeek Harness bundle: one row, all tools in one module.
 - insert:
     - id: tool-cluster-memory
       name: 'cluster-memory'
