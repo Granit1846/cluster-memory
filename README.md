@@ -2,8 +2,8 @@
 
 **A coding agent forgets. This makes the project remember.**
 
-Cluster Memory keeps a keyword trail of what was already asked and found in a project —
-the files, the graph nodes, and one sentence of what was concluded — so the next
+Cluster Memory keeps a keyword trail of what was already asked and found in a project -
+the files, the graph nodes, and one sentence of what was concluded - so the next
 question is answered by **one small lookup** instead of grepping the tree, re-reading
 files, or scrolling through history that compaction may have hidden.
 
@@ -39,7 +39,7 @@ DSH.
 
 Both write the same trail format, so a project remembers across agents.
 
-## Install — terminal (skill)
+## Install - terminal (skill)
 
 ```bash
 git clone https://github.com/Granit1846/cluster-memory.git ~/.claude/skills/cluster-memory
@@ -64,9 +64,9 @@ Verify:
 node ~/.claude/skills/cluster-memory/scripts/cluster-memory.mjs summary
 ```
 
-## Install — DSH plugin, straight from GitHub
+## Install - DSH plugin, straight from GitHub
 
-The repository root **is** the bundle, so a git spec is enough — no build, no npm
+The repository root **is** the bundle, so a git spec is enough - no build, no npm
 publish, no clone.
 
 In a DSH session, ask:
@@ -92,7 +92,7 @@ dsh plugin --profile <name> add github:Granit1846/cluster-memory
 
 That forwards the arguments to pnpm inside `$DSH_HOME/profiles/<name>`, then activates any
 newly installed bundle on the next boot of that profile. It refuses `--profile desktop` on
-purpose — the Desktop app owns that profile, so use **Plugins** there.
+purpose - the Desktop app owns that profile, so use **Plugins** there.
 
 Afterwards:
 
@@ -102,7 +102,7 @@ graphify_doctor
 ```
 
 Update and removal use the same spec: `install_bundle`, `set_bundle enabled: false`,
-`remove_bundle` — or `dsh plugin --profile <name> add|remove <spec>`. Every route, plus
+`remove_bundle` - or `dsh plugin --profile <name> add|remove <spec>`. Every route, plus
 local checkouts and troubleshooting, is in [docs/INSTALL.md](docs/INSTALL.md).
 
 ## Use
@@ -150,7 +150,7 @@ Measured numbers and the method behind them: [docs/COMPARISON.md](docs/COMPARISO
 ```
 
 `trail.jsonl` is the source of truth; `index.json` is rebuilt from it (`rebuild`).
-Commit the log if the team should share the memory, ignore the index — the snippet is
+Commit the log if the team should share the memory, ignore the index - the snippet is
 in [.gitignore](.gitignore) already. The DSH plugin keeps its own trail under
 `graphify-out/trail/`, and `where` merges the two when both exist.
 
@@ -187,14 +187,14 @@ Set them in the profile patch, or through environment variables
 ## Works with the graphify CLI, and without it
 
 If [`graphify`](https://github.com/Graphify-Labs/graphify) is installed, layer 2 is its
-graph — nodes from the trail are ideal seeds for `graphify query`. If it is not, layer 2
+graph - nodes from the trail are ideal seeds for `graphify query`. If it is not, layer 2
 is a bounded grep and the structural tools say so instead of pretending. The memory
 layer works either way.
 
 ## Automation
 
-- `examples/claude-code-hooks.json` — a `PostToolUse` hook that trails every tool result.
-- `examples/git-post-commit.sh` — records commit keywords, so decisions tied to a commit
+- `examples/claude-code-hooks.json` - a `PostToolUse` hook that trails every tool result.
+- `examples/git-post-commit.sh` - records commit keywords, so decisions tied to a commit
   stay findable.
 
 Without hooks the model records explicitly with `remember`; the skill instructs it to do
@@ -219,7 +219,7 @@ so after every answered question. In DSH the plugin does this on its own unless
 записывает «след»: вопрос, 3–8 ключевых слов, файлы, узлы графа и вывод одной строкой.
 Следующий вопрос решается одним дешёвым чтением (~230 токенов) вместо grep, чтения
 файлов (1.5–2.5k за файл) или перечитывания истории. Переживает сжатие контекста, новые
-сессии и смену модели — потому что это файл в проекте, а не состояние чата. Поиск идёт
+сессии и смену модели - потому что это файл в проекте, а не состояние чата. Поиск идёт
 слоями: журнал → граф/код → файлы → история как крайний случай.
 
 Установка в терминале:
@@ -228,14 +228,14 @@ so after every answered question. In DSH the plugin does this on its own unless
 git clone https://github.com/Granit1846/cluster-memory.git ~/.claude/skills/cluster-memory
 ```
 
-Установка в DSH прямо из GitHub — попросить агента:
+Установка в DSH прямо из GitHub - попросить агента:
 
 > Установи бандл cluster-memory из github:Granit1846/cluster-memory
 
 или в интерфейсе: **Плагины** → **Add plugin** → `github:Granit1846/cluster-memory`.
-Если `dsh` есть в PATH — из терминала: `dsh plugin --profile <name> add
+Если `dsh` есть в PATH - из терминала: `dsh plugin --profile <name> add
 github:Granit1846/cluster-memory` (профиль `desktop` так не ставится: им владеет приложение).
-Настройки — в [docs/SETTINGS.md](docs/SETTINGS.md), подробности установки — в
+Настройки - в [docs/SETTINGS.md](docs/SETTINGS.md), подробности установки - в
 [docs/INSTALL.md](docs/INSTALL.md).
 
 ## Documentation
@@ -249,4 +249,4 @@ github:Granit1846/cluster-memory` (профиль `desktop` так не став
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE).
