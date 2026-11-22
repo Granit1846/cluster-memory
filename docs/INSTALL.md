@@ -36,7 +36,7 @@ git clone https://github.com/Granit1846/cluster-memory.git "$env:USERPROFILE\.cl
 | Gemini CLI | clone anywhere, add `@cluster-memory/SKILL.md` to `GEMINI.md` |
 | Anything with a shell | clone anywhere and run the script; the skill text is optional |
 
-Verify the script works — it prints an empty store, not an error:
+Verify the script works - it prints an empty store, not an error:
 
 ```bash
 node ~/.claude/skills/cluster-memory/scripts/cluster-memory.mjs summary
@@ -55,13 +55,13 @@ also copy `SKILL.md` into `~/.dsh/skills`.
 
 ## B. DSH plugin, straight from GitHub
 
-The repository root is a DSH bundle, so a bare git spec is enough — no build step, no
+The repository root is a DSH bundle, so a bare git spec is enough - no build step, no
 npm publish, no clone.
 
 ### B1. From a terminal (`dsh plugin`)
 
 If `dsh` is on your PATH (npm/global install, or `npx @deepseek-ai/dsh`), the CLI manages a
-profile's packages directly — everything after its own flags is forwarded to pnpm inside
+profile's packages directly - everything after its own flags is forwarded to pnpm inside
 `$DSH_HOME/profiles/<name>`:
 
 ```bash
@@ -92,7 +92,7 @@ dsh plugin --profile web revoke-version cluster-memory@1.2.0 --dsh-version 0.2.2
 
 Three limits are worth knowing:
 
-- **`--profile desktop` is refused** — `error: profile "desktop" is managed exclusively by
+- **`--profile desktop` is refused** - `error: profile "desktop" is managed exclusively by
   the Electron application`. Use **Plugins** or `plugin_manager` (B2/B3) for the Desktop app.
 - **Git-hosted specs build on install** through their `prepare` script, which pnpm blocks
   until allowed: add the exact key pnpm prints under `allowBuilds` in the profile's
@@ -127,7 +127,7 @@ Accepted target forms:
 
 DSH pre-checks the repository with `git ls-remote`, then installs the package into the
 current profile and adds the bundle row. Without hot reload the result is
-`application: restart-required` — restart DSH, then open a new session.
+`application: restart-required` - restart DSH, then open a new session.
 
 ### B3. From the GUI
 
@@ -146,7 +146,7 @@ Expect, among other lines:
   settings: trail: on · autobuild: on up to 4000 files · history hint: auto · bin: auto-detected · capture dir: OS temp · tools: all
 ```
 
-If the CLI is missing it says so and the memory features still work — the graph tools
+If the CLI is missing it says so and the memory features still work - the graph tools
 report an honest "graphify is not installed" instead of failing.
 
 The 15 tools, the `cluster-memory` skill, automatic trailing and automatic first
@@ -171,10 +171,10 @@ jobs are `dsh plugin --profile <name> add|remove <spec>` (see B1).
 Without hooks the model records with `remember`/`graphify_remember` after it answers.
 With hooks the trail fills itself.
 
-**Claude Code** — merge `examples/claude-code-hooks.json` into
+**Claude Code** - merge `examples/claude-code-hooks.json` into
 `.claude/settings.json`; it pipes every tool result to `record --stdin`.
 
-**Git** — `examples/git-post-commit.sh` as `.git/hooks/post-commit` records the commit
+**Git** - `examples/git-post-commit.sh` as `.git/hooks/post-commit` records the commit
 message keywords, so decisions tied to a commit stay findable:
 
 ```bash
@@ -190,10 +190,10 @@ quiet and the agent is unaffected.
 
 | Symptom | Fix |
 |---|---|
-| `Unknown command` from the script | You are on an older copy — `git pull`. |
+| `Unknown command` from the script | You are on an older copy - `git pull`. |
 | `spawn EPERM` in a sandboxed shell | The host forbids piped child processes; the plugin captures CLI output through temp files instead. In the skill, run commands in-process (`main([...])`) or outside the sandbox. |
 | Plugin installed, tools absent | Restart DSH, then check the row in **Plugins**. If the row is there but tools are not, your agent preset's tool policy may exclude them. |
 | `graphify is not installed` | The graph layer is optional. `where`, `remember` and `lessons` work without it. Install it with `pip install graphifyy` for the structural tools. |
 | Graph built for the wrong directory | The automatic build only runs inside the session workspace; use `graphify_build` with an explicit `path` for anything else. |
-| Trail stays empty in DSH | `trail: false` in the profile config, or `DSH_GRAPHIFY_TRAIL=0` in the environment — see [SETTINGS.md](SETTINGS.md). |
+| Trail stays empty in DSH | `trail: false` in the profile config, or `DSH_GRAPHIFY_TRAIL=0` in the environment - see [SETTINGS.md](SETTINGS.md). |
 | Numbers in `where` look stale | `rebuild` regenerates the index from the log; the log itself is append-only. |
