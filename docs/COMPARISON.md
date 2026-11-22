@@ -1,7 +1,7 @@
 # Comparison: Cluster Memory vs. a knowledge-graph skill
 
-Both approaches attack the same problem — an agent that re-derives what the project
-already knows — from different ends. This page records what was measured, how, and
+Both approaches attack the same problem - an agent that re-derives what the project
+already knows - from different ends. This page records what was measured, how, and
 where each one wins.
 
 ## What is being compared
@@ -34,8 +34,8 @@ on a real 2-file project with a populated trail, Windows, Node 24.
 | `remember` confirmation | 300 | 83 |
 | Graph traversal answer (`graphify query`) | 2 003 | 556 |
 | Graph node explanation (`graphify explain`) | 593 | 165 |
-| One mid-size source file read | — | 1 500–2 500 |
-| Session-history search (search → trace) | — | 3 000–6 000 |
+| One mid-size source file read | - | 1 500–2 500 |
+| Session-history search (search → trace) | - | 3 000–6 000 |
 
 Read that table as the reason for the layer order: a trail hit is **6–10× cheaper
 than opening one file** and **13–26× cheaper than a history search**.
@@ -49,7 +49,7 @@ five-tool session-history bundle.
 
 A skill pays nothing per request: `SKILL.md` is loaded on demand, and a script
 invocation only costs its own output. On a 30k-token request the difference is ~19%
-of the context window — which is why the skill shape exists.
+of the context window - which is why the skill shape exists.
 
 The trade: the plugin can subscribe to every tool result and trail automatically; a
 skill relies on the model calling `remember`, or on agent hooks (`examples/`). Where
@@ -58,16 +58,16 @@ cost.
 
 ## Where a graph still wins
 
-- "What breaks if I change this function" — reverse traversal needs the graph.
-- "How do these two modules reach each other" — the trail cannot know it.
-- PDFs, papers, screenshots, office files — only the graph's LLM/vision pass reads
+- "What breaks if I change this function" - reverse traversal needs the graph.
+- "How do these two modules reach each other" - the trail cannot know it.
+- PDFs, papers, screenshots, office files - only the graph's LLM/vision pass reads
   those.
-- A brand-new repository nobody has asked about yet — the graph has content on
+- A brand-new repository nobody has asked about yet - the graph has content on
   minute one; the trail is empty until questions are answered.
 
 ## Where Cluster Memory wins
 
-- The same question asked a second time — 233 tokens and no tool churn.
+- The same question asked a second time - 233 tokens and no tool churn.
 - A decision that was never in the code but was concluded out loud.
 - Long sessions where compaction silently drops the pointers (file names, function
   names); the trail keeps them.
@@ -80,7 +80,7 @@ If you publish numbers, publish the method with them:
 
 1. Run the same question through each layer with a fixed agent and model.
 2. Sum the tokens of every tool result the agent received while answering.
-3. Repeat over a set of questions, not one — a single question can flatter any layer.
+3. Repeat over a set of questions, not one - a single question can flatter any layer.
 4. Report misses: a layer that answers cheaply half the time is not cheaper than one
    that answers always.
 
